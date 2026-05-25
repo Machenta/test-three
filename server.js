@@ -21,6 +21,7 @@ const serviceId = process.env.SERVICE_ID || "x4-test-three";
 const displayName = process.env.SERVICE_NAME || "X4 Test Three";
 const themeColor = process.env.THEME_COLOR || "#7c3aed";
 const message = process.env.SERVICE_MESSAGE || "Hello from test three";
+const featureBadge = "Feature workspace: leaf response updated";
 
 function json(response, status, body) {
   response.writeHead(status, { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
@@ -46,6 +47,7 @@ function html() {
       <section>
         <h1>${displayName}</h1>
         <p>${message}</p>
+        <p><strong>${featureBadge}</strong></p>
         <p>This service has no downstream peer. Its API is <code>/api/status</code>.</p>
       </section>
     </main>
@@ -56,8 +58,8 @@ function html() {
 createServer((request, response) => {
   const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
   if (url.pathname === "/health") return json(response, 200, { ok: true, serviceId });
-  if (url.pathname === "/api/status") return json(response, 200, { serviceId, displayName, themeColor, message, peers: [] });
-  if (url.pathname === "/api/flow") return json(response, 200, { serviceId, displayName, peers: [] });
+  if (url.pathname === "/api/status") return json(response, 200, { serviceId, displayName, themeColor, message, featureBadge, peers: [] });
+  if (url.pathname === "/api/flow") return json(response, 200, { serviceId, displayName, featureBadge, peers: [] });
   response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
   response.end(html());
 }).listen(port, host, () => {
