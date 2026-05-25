@@ -15,6 +15,7 @@ function loadDotenv(path = ".env") {
 
 loadDotenv();
 
+const host = process.env.HOST || "0.0.0.0";
 const port = Number(process.env.PORT || 4000);
 const serviceId = process.env.SERVICE_ID || "x4-test-three";
 const displayName = process.env.SERVICE_NAME || "X4 Test Three";
@@ -59,6 +60,6 @@ createServer((request, response) => {
   if (url.pathname === "/api/flow") return json(response, 200, { serviceId, displayName, peers: [] });
   response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
   response.end(html());
-}).listen(port, "0.0.0.0", () => {
-  console.log(`${serviceId} listening on ${port}`);
+}).listen(port, host, () => {
+  console.log(`${serviceId} listening on ${host}:${port}`);
 });
