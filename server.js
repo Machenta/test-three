@@ -21,7 +21,7 @@ const serviceId = process.env.SERVICE_ID || "x4-test-three";
 const displayName = process.env.SERVICE_NAME || "X4 Test Three";
 const themeColor = process.env.THEME_COLOR || "#7c3aed";
 const message = process.env.SERVICE_MESSAGE || "Hello from test three";
-const featureBadge = "Feature workspace: leaf response updated";
+const featureBadge = "Feature workspace: leaf response updated; X4 linked issue smoke marker for test-three via test-one #10";
 
 function json(response, status, body) {
   response.writeHead(status, { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
